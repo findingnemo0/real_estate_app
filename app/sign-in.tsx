@@ -16,8 +16,8 @@ const SignIn = () => {
         />
         <View className='px-10'>
           <Text className='text-base text-center uppercase font-rubik text-black-200'>Welcome to ReState</Text>
-        <Text className='text-2xl font-rubik-bold text-black-300 text-center mt-2'>Lets Get You Closer to {"\n"}
-          <Text className='text-blue-400'>Your Ideal Home</Text>
+        <Text className='text-2xl font-rubik-medium text-black-300 text-center mt-2'>Lets Get You Closer to {"\n"}
+          <Text className='text-blue-400 text-xl font-rubik-medium'>Your Ideal Home</Text>
         </Text>
         <Text className='text-lg font-rubik text-black-200 text-center mt-12'>Login to ReState with Google</Text>
 
