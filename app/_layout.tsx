@@ -2,7 +2,6 @@ import { useFonts } from "expo-font";
 import { SplashScreen, Stack } from "expo-router";
 import { useEffect } from "react";
 import "./global.css";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 
 export default function RootLayout() {
@@ -24,5 +23,5 @@ export default function RootLayout() {
 
   if (!fontsLoaded) return null;
 
-  return <Stack />;
+  return <Stack screenOptions={{headerShown: false}}/>; // to hide default header in app use "screenOptions={{headerShown: false}}"
 }
