@@ -1,6 +1,5 @@
 import { Account, Avatars, Client, OAuthProvider } from "appwrite";
 import * as Linking from "expo-linking";
-import * as WebBrowser from "expo-web-browser";
 
 const client = new Client()
   .setEndpoint(process.env.EXPO_PUBLIC_APPWRITE_ENDPOINT!)
@@ -14,7 +13,6 @@ export async function login() {
   try {
     const redirectUri = Linking.createURL("/");
 
-    // Opens Appwrite OAuth session (redirects user to Google login)
     await account.createOAuth2Session(
       OAuthProvider.Google,
       redirectUri,
@@ -25,7 +23,10 @@ export async function login() {
     const user = await account.get();
     console.log("User logged in:", user);
 
-    return user;
+    return {
+      ...user,
+      avatar: avatars.getInitials(user.name).toString(),
+    };
   } catch (error) {
     console.error("Login error:", error);
     return null;
@@ -44,16 +45,18 @@ export async function logout() {
 }
 
 // ✅ Get User + Avatar
-export async function getUser() {
+export async function getCurrentUser() {
   try {
     const user = await account.get();
-    const userAvatar = avatars.getInitials(user.name);
-
     return {
       ...user,
-      avatar: userAvatar.toString(),
+      avatar: avatars.getInitials(user.name).toString(),
     };
-  } catch (error) {
+  } catch (error: any) {
+    if (error?.code === 401) {
+      // No active session
+      return null;
+    }
     console.error("Get user error:", error);
     return null;
   }
